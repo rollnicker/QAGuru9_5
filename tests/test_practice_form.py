@@ -1,4 +1,43 @@
 from selene import browser, have, be
+import os
+
+def test_demoqa():
+    browser.open("https://demoqa.com/automation-practice-form")
+    browser.element("#firstName").type("kek")
+    browser.element("#lastName").type("Kekinskii")
+    browser.element("#userEmail").type("kekovich@mail.ru")
+    browser.element("//*[text()='Male']/parent::*").click()
+    browser.element("#userNumber").type(8985123456)
+    browser.element("#dateOfBirthInput").click()
+    browser.all(".react-datepicker__year-select>option").element_by(have.text("1990")).click()
+    browser.all(".react-datepicker__month-select").element_by(have.text("March")).click()
+    browser.all(".react-datepicker__day").element_by(have.text("10")).click()
+    browser.element("#subjectsInput").click().send_keys("math")
+    browser.element("#react-select-2-option-0").click()
+    browser.element("//*[text()='Sports']/parent::*").click()
+    browser.execute_script("window.scrollTo(0,500)")
+    #browser.element("#uploadPicture").press_enter().send_keys("picture/pepe.jpeg")
+    browser.element("#currentAddress").type("omsk")
+
+    browser.element("#state").click()
+    browser.element("#react-select-3-option-0").should(be.visible).click()
+    browser.element("#city").click()
+    browser.element("#react-select-4-option-0").click()
+    browser.element("#submit").press_enter()
+    browser.element(".modal-header").should(have.text("Thanks for submitting the form"))
+    browser.element(".table").should(have.text(
+        'kek Kekinskii'and
+        'kekovich@mail.ru'and
+        'Male'and
+        '8985123456'and
+        '10 November,1990'and
+        'Maths'and
+        'Sports'and
+        'Picture'and
+        'omsk'and
+        'NCR Delhi'
+    ))
+    browser.element("#closeLargeModal").press_enter()
 
 """
 Метод для закрытия таба - просили не добавлять функции
