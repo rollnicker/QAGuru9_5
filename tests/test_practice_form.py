@@ -2,7 +2,7 @@ from selene import browser, have, be
 import os
 
 def test_demoqa():
-    browser.open("https://demoqa.com/automation-practice-form")
+    browser.open("/automation-practice-form")
     browser.element("#firstName").type("kek")
     browser.element("#lastName").type("Kekinskii")
     browser.element("#userEmail").type("kekovich@mail.ru")
@@ -16,26 +16,26 @@ def test_demoqa():
     browser.element("#react-select-2-option-0").click()
     browser.element("//*[text()='Sports']/parent::*").click()
     browser.execute_script("window.scrollTo(0,500)")
-    #browser.element("#uploadPicture").press_enter().send_keys("picture/pepe.jpeg")
+    browser.element("#uploadPicture").send_keys(os.path.abspath("../picture/pepe.jpeg"))
     browser.element("#currentAddress").type("omsk")
-
     browser.element("#state").click()
     browser.element("#react-select-3-option-0").should(be.visible).click()
     browser.element("#city").click()
     browser.element("#react-select-4-option-0").click()
     browser.element("#submit").press_enter()
     browser.element(".modal-header").should(have.text("Thanks for submitting the form"))
-    browser.element(".table").should(have.text(
-        'kek Kekinskii'and
-        'kekovich@mail.ru'and
-        'Male'and
-        '8985123456'and
-        '10 November,1990'and
-        'Maths'and
-        'Sports'and
-        'Picture'and
-        'omsk'and
-        'NCR Delhi'
+    browser.element(".modal-body").should(have.exact_text(
+        'Label Values\n' 
+        'Student Name kek Kekinskii\n' 
+        'Student Email kekovich@mail.ru\n' 
+        'Gender Male\n' 
+        'Mobile 8985123456\n' 
+        'Date of Birth 10 November,1990\n' 
+        'Subjects Maths\n' 
+        'Hobbies Sports\n' 
+        'Picture pepe.jpeg\n' 
+        'Address omsk\n' 
+        'State and City NCR Delhi'
     ))
     browser.element("#closeLargeModal").press_enter()
 
