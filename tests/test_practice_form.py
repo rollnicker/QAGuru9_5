@@ -11,6 +11,8 @@ def test_demoqa():
     browser.element("#dateOfBirthInput").click()
     browser.all(".react-datepicker__year-select>option").element_by(have.text("1990")).click()
     browser.all(".react-datepicker__month-select").element_by(have.text("March")).click()
+#   browser.all(".react-datepicker__month-select").all('option')[4].click
+#   browser.all(".react-datepicker__month-select").send_keys('May')
     browser.all(".react-datepicker__day").element_by(have.text("10")).click()
     browser.element("#subjectsInput").click().send_keys("math")
     browser.element("#react-select-2-option-0").click()
@@ -18,6 +20,7 @@ def test_demoqa():
     browser.execute_script("window.scrollTo(0,500)")
     browser.element("#uploadPicture").send_keys(os.path.abspath("../picture/pepe.jpeg"))
     browser.element("#currentAddress").type("omsk")
+#    browser.element("#currentAddress").perform(command.js.set_value('omskaya street')) test
     browser.element("#state").click()
     browser.element("#react-select-3-option-0").should(be.visible).click()
     browser.element("#city").click()
@@ -32,7 +35,7 @@ def test_demoqa():
         'Mobile 8985123456\n' 
         'Date of Birth 10 November,1990\n' 
         'Subjects Maths\n' 
-        'Hobbies Sports\n' 
+        'Hobbies Sports\n'  
         'Picture pepe.jpeg\n' 
         'Address omsk\n' 
         'State and City NCR Delhi'
@@ -65,6 +68,9 @@ def test_complete_todo():
     #browser.execute_script("window.scrollTo(0,200)") //Может пригодится для других размеров окон
     browser.element("[data-testid ='dateOfBirth']").click().type("12111999")
     browser.element("[value='Male']").click()
+    '''
+    browser.all("[name=gender]").have_value(have.exact_text("Female").click()
+    '''
     browser.all('[type="checkbox"]').second.click()
     #browser.execute_script("window.scrollTo(0,200)")  /Может пригодится для других размеров окон
     browser.element("//*[text()='Subjects']/parent::*").click()
